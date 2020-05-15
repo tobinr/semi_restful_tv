@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TTVDB | Tobin's TV Database</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/all_shows.css' %}">
+</head>
+<body>
+    <div id="container">
+        <div id="header">
+            <h1>TTVDB - Tobin's TV Database!</h1>
+        </div>
+        <table>
+            <tr>
+                <th><h3>id</h3></th>
+                <th><h3>Title</h3></th>
+                <th><h3>Network</h3></th>
+                <th><h3>Release Date</h3></th>
+                <th><h3>Actions</h3></th>
+            </tr>
+            {% for show in all_shows %}
+            <tr>
+                <th>{{show.id}}</th>
+                <th>{{show.title}}</th>
+                <th>{{show.network.name}}</th>
+                <th>{{show.release_date}}</th>
+                <th><a href="/shows/{{show.id}}">Show</a></th>
+                <th><a href="/shows/{{show.id}}/edit">Edit</a></th>
+                <th><a href="/shows/{{show.id}}/delete">Delete</a></th>
+            </tr>
+            {% endfor %}
+        </table>
+        <div id="footer">
+            <a href="/shows/new">Add a New Show</a>
+        </div>
+    </div>
+</body>
+</html>

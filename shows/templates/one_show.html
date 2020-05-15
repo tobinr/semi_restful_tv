@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TTVDB | {{curr_show.title}}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/one_show.css' %}">
+</head>
+<body>
+    <div id="container">
+        <div id="header">
+            <h1>TV Show {{curr_show.id}}</h1>
+            <a href="/shows">All Shows</a>
+        </div>
+        <div class="show_info">
+            <h1>Title:</h1>
+            <h3>{{curr_show.title}}</h3>
+            <h2>Network:</h2>
+            <h4>{{curr_show.network.name}}</h3>
+            <h2>Description</h2>
+            <h4>{{curr_show.desc}}</h4>
+            <h2>Release Date:</h2>
+            <h4>{{curr_show.release_date}}</h4>
+        </div>
+        <div id="footer">
+            <p>Last Updated: {{curr_show.updated_at}}</p>
+            <div id="show_links">
+                <p><a href="/shows/{{curr_show.id}}/edit">Edit</a> | <a href="/shows/{{curr_show.id}}/delete">Delete</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
