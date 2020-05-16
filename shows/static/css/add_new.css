@@ -25,6 +25,18 @@ textarea {
     width: 300px;
 }
 
+#errors {
+    height: 100px;
+    margin-top: 10px;
+}
+
+        .messages li {
+            list-style: none;
+            color: red;
+            font-size: 8pt;
+        }
+
+
 #submit {
     display: block;
     padding-top: 5px;

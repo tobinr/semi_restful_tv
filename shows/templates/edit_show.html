@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TTVDB | Edit {{curr_show.title}}</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/one_show.css' %}">
+    <link rel="stylesheet" href="{% static 'css/edit_show.css' %}">
 </head>
 <body>
     <div id="container">
@@ -18,14 +18,24 @@
                 {% csrf_token %}
                 <h1>Title:</h1>
                 <input type="text" name="title" value="{{curr_show.title}}"></input>
-                <!-- <h2>Network:</h2>
-                <input type="text" name="network" value="{{curr_show.network.name}}"></input> -->
-                <h2>Release Date:</h2>
-                <input type="date" name="release_date" value="{{curr_show.release_date}}" id="release_date">
+                <h2>Network:</h2>
+                <input type="text" name="network" value="{{curr_show.network.name}}"></input>
+                <!-- Below is release date, but edit requires input. Need to change to Python datetime format for usability -->
+                <!-- <h2>Release Date:</h2>
+                <input type="date" name="release_date" value="{{curr_show.release_date}}" id="release_date"> -->
                 <h2>Description:</h2>
                 <textarea name="desc" id="Description"></textarea>
                 <input type="submit" value="Submit Changes" id="sub_btn">
             </form>
+        </div>
+        <div id="errors">
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
         </div>
         <div id="footer">
             <p>Last Updated: {{curr_show.updated_at}}</p>

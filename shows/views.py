@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.shortcuts import render, redirect
 from .models import Network, Show
 
@@ -36,44 +37,48 @@ def edit_show_page(request, id):
 # Create a new show but validating if network or show exists
 def create_show(request):
     if request.method == "POST":
-
-        # Check if network exists
-        known_network = False
-        input_network = request.POST['network']
-        for network in Network.objects.all():
-            if network.name == input_network:
-                known_network = True
-
-        # If network is new, create network object
-        if known_network == False:
-            working_network = Network.objects.create(name=input_network)
+        # Error Validation of new show form
+        errors = Show.objects.basic_validator(request.POST)
+        if len(errors) > 0:
+            for key, value in errors.items():
+                messages.error(request, value)
+                # print(errors)
+            return redirect('/shows/new')
         else:
-            working_network = Network.objects.get(name=input_network)
-        
-        # Check if Show object exists
-        # for show in Show.objects.all():
-        #     if show.title == request.POST['title']:
-        #         return redirect('/shows/one_show')
-        #     else:
-                # Create Show object with 
-        new_show = Show.objects.create(title=request.POST['title'], network=working_network, release_date=request.POST['release_date'], desc=request.POST['desc'])
-        print(new_show.title)
-        return redirect('/shows/'+str(new_show.id))
+            # Check if network exists
+            known_network = False
+            input_network = request.POST['network']
+            for network in Network.objects.all():
+                if network.name == input_network:
+                    known_network = True
+
+            # If network is new, create network object
+            if known_network == False:
+                working_network = Network.objects.create(name=input_network)
+            else:
+                working_network = Network.objects.get(name=input_network)
+            new_show = Show.objects.create(title=request.POST['title'], network=working_network, release_date=request.POST['release_date'], desc=request.POST['desc'])
+            print(new_show.title)
+            return redirect('/shows/'+str(new_show.id))
     print("Show was not created")
     return redirect('/shows/new')
 
 # POST redirect from show_edit_page
 def process_edit(request, id):
     if request.method == 'POST':
-        # curr_network = Network.object.get(name=request.POST['network'])
-        edit_show = Show.objects.get(id=id)
-        edit_show.title = request.POST['title']
-        # edit_show.network = Network.objects.get(name=request.POST['network'])
-        # edit_show.network = curr_network
-        edit_show.release_date = request.POST['release_date']
-        edit_show.desc = request.POST['desc']
-        edit_show.save()
-        return redirect('/shows')
+        errors = Show.objects.basic_validator(request.POST)
+        if len(errors) > 0:
+            for key, value in errors.items():
+                messages.error(request, value)
+                # print(errors)
+            return redirect('/shows/'+str(id)+'/edit')
+        else:
+            edit_show = Show.objects.get(id=id)
+            edit_show.title = request.POST['title']
+            # edit_show.release_date = request.POST['release_date']
+            edit_show.desc = request.POST['desc']
+            edit_show.save()
+            return redirect('/shows')
 
 # Removes show from DB
 def delete_show(request, id):

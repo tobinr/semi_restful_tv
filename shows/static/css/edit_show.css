@@ -1,0 +1,62 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    /* outline: 1px solid green; */
+}
+
+#container {
+    width: 900px;
+    margin: 15px auto;
+}
+
+textarea {
+    margin: 10px 0;
+    height: 70px;
+    width: 300px;
+}
+
+#header {
+    margin: 20px 0;
+}
+    #header a {
+        display: inline-block;
+        vertical-align: top;
+        margin-right: 20px;
+        margin-left: 250px;
+    }
+    #header h1 {
+        display: inline-block;
+        font-size: 48pt;
+    }
+
+#show_info h1, h2, h3, h4 {
+    margin-top: 15px;
+}
+
+#show_info h3, h4 {
+    margin-left: 15px;
+}
+
+#sub_btn {
+    display: block;
+}
+
+#errors {
+    height: 100px;
+    margin-top: 10px;
+}
+
+        .messages li {
+            list-style: none;
+            color: red;
+            font-size: 8pt;
+        }
+
+
+#footer {
+    margin-top: 50px;
+}
+    #show_links {
+        margin-top: 10px;
+    }
